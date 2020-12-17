@@ -4,8 +4,10 @@ This repository contains a program to read a text file and print out the 20 most
 The code is written in python.
 
 To run the program, make sure all the files are in the same directory, and in that directory, run either of the following commands, depending on which file you want to read the text of:
-python StemFrequency.py Text1.txt
-python StemFrequency.py Text2.txt
+
+`python StemFrequency.py Text1.txt`
+
+`python StemFrequency.py Text2.txt`
 
 You can even run it on another text file of your choosing by passing in the path to the file instead of "Text1.txt" or "Text2.txt"
 
@@ -14,7 +16,7 @@ There are 3 source code files:
 * PorterStemmer.py - This is the Porter Stemmer algorithm.
   * It is a nearly exact copy of the code provided at https://tartarus.org/martin/PorterStemmer/python.txt with the syntaxt of one line changed to allow it to run without crashing.
 * TestStemFreqency.py - This contains the unit tests.
-  * You can run them from the command line with: python TestStemFrequency.py
+  * You can run them from the command line with: `python TestStemFrequency.py`
 
 ## Brief notes:
 The program does the following, in order:
