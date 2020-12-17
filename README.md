@@ -1,8 +1,8 @@
 # common-word-stems
 
-This repository contains a program to read a text file and print out the 20 most commonly occuring word stems, not including words from a set of stopwords.
+This repository contains a program to read a text file and print out the 20 most commonly occurring word stems, not including words from a set of stopwords.
 
-The code is written in Python 3. It will run in Python 2, but you will get a slightly different output in Python 2. I chose to use the convention that for stems that have the same frequency, they will be kept in the order of their first appearance in the text. This will not hold true if the code is run in Python 2. Also, the unit tests will fail in Python 2, due to this reason, and because of different handling of unicode characters.
+The code is written in Python 3. I did not attempt backwards compatibility for Python 2. I did do a test run in Python 2, and the main program will still work, but the unittests will fail due to incompatibility with unicode.
 
 To run the program, make sure all the files are in the same directory, and in that directory, run either of the following commands, depending on which file you want to read the text of:
 
@@ -13,10 +13,10 @@ To run the program, make sure all the files are in the same directory, and in th
 You can even run it on another text file of your choosing by passing in the path to the file instead of "Text1.txt" or "Text2.txt"
 
 There are 3 source code files:
-* StemFreqency.py - This is the main logic for the program.
+* StemFrequency.py - This is the main logic for the program.
 * PorterStemmer.py - This is the Porter Stemmer algorithm.
   * It is a nearly exact copy of the code provided at https://tartarus.org/martin/PorterStemmer/python.txt with the syntaxt of one line changed to allow it to run without crashing.
-* TestStemFreqency.py - This contains the unit tests.
+* TestStemFrequency.py - This contains the unit tests.
   * You can run them from the command line with: `python TestStemFrequency.py`
 
 ## Brief notes:
@@ -31,7 +31,7 @@ The program does the following, in order:
   * For example, `{"dogs": 2, "dog": 3}` would become `{"dog": 5}`
   * Also, apostrophes are removed here, just before the stemming is done. (see detailed notes below for explanation)
 * Find the 20 most common stems, in descending order
-  * I was faced with another choice here: how to order stems with the same frequency. I could either keep them in the same order (which in this case was the order that they were first found in the text), or choose some secondary order, such as alphabetical. I wrote both into the function, but had it default to keeping the original order.
+  * I was faced with a choice here: how to order stems with the same frequency. I chose to order alphabetically, so the final order is first by frequency descending, then alphabetically, ascending.
 * Print out the 20 most common stems
   * I print the frequencies with the stems, although the specification doesn't explicitly demand it. It would be a trivial change to print just the stems.
 
@@ -50,7 +50,7 @@ I followed this order:
 
 This results in the same output, but because the stopword and stemming removal comes after computing the frequency, those operations only have to be done once per unique word, which allows for better performance.
 
-As noted above, for stems of the same frequency, I kept them in the order they first appeared in the text.
+As noted above, for stems of the same frequency, I order alphabetically.
 
 ## Output:
 For reference, the output of the program for the two files is as follows:
@@ -58,9 +58,9 @@ For reference, the output of the program for the two files is as follows:
 For Text1.txt:
 ```
 us (11)
+govern (10)
 peopl (10)
 right (10)
-govern (10)
 law (9)
 state (9)
 power (8)
@@ -69,13 +69,13 @@ among (5)
 declar (5)
 establish (5)
 refus (5)
-form (4)
 abolish (4)
-new (4)
-coloni (4)
 assent (4)
+coloni (4)
+form (4)
+free (4)
+independ (4)
 larg (4)
-legislatur (4)
 legisl (4)
 ```
 
@@ -91,16 +91,16 @@ know (92)
 went (83)
 thing (79)
 go (77)
-thought (76)
 queen (76)
+thought (76)
 time (74)
 sai (71)
 get (68)
 see (68)
-think (64)
 king (64)
+think (64)
 turtl (61)
-well (60)
+head (60)
 ```
 
 ## Additional detailed notes that not everyone may care about:
@@ -112,19 +112,19 @@ The order of when you remove non-alphabetic characters is important, as to where
 In most cases, the pattern-matching I use to tokenize the text also removes non-alphabetic characters. There are a few characters that required special handling, as follows.
 
 #### Apostrophes:
-The stopwords contained contractions, so apostropies couldn't be removed from the text representation until after the stopwords were removed. Most contractions were removed by the stopwords themselves, but they didn't contain contractions to arbitrary words or proper nouns. For instance, Text2.txt contained "Dinah'll". The stemmer handling is not apostrophe-independent. For instance, the plural "natures" stems to "natur", but the possessive "nature's" stems to "nature'". Since these words should be considered the same stem, and since we eventually have to remove non-alphabetic characters per the spec, I decided to remove the apostrophe before doing the stemming. The drawback is that arbitrary contractions like "Dinah" and "Dinah'll" will not counted as two "Dinah" stems, but that is acceptible, if not desireable. (As a side note, apostrophes not falling within a word are removed by the tokenization pattern, such as in 'some quoted text')
+The stopwords contained contractions, so apostrophes couldn't be removed from the text representation until after the stopwords were removed. Most contractions were removed by the stopwords themselves, but they didn't contain contractions to arbitrary words or proper nouns. For instance, Text2.txt contained "Dinah'll". The stemmer handling is not apostrophe-independent. For instance, the plural "natures" stems to "natur", but the possessive "nature's" stems to "nature'". Since these words should be considered the same stem, and since we eventually have to remove non-alphabetic characters per the spec, I decided to remove the apostrophe before doing the stemming. The drawback is that arbitrary contractions like "Dinah" and "Dinah'll" will not be counted as two "Dinah" stems, but that is acceptable, if not desirable. (As a side note, apostrophes not falling within a word are removed by the tokenization pattern, such as in 'some quoted text')
 
 #### Hyphens:
-Some words are hyphenated, but there are varying degrees to which the parts hyphenated by seperate parts can be considered independent of each other. The stopwords file doesn't contain any hyphenated words, so that gives us some freedom. Text2.txt contains all of the following words:
+Some words are hyphenated, but there are varying degrees to which the parts hyphenated by separate parts can be considered independent of each other. The stopwords file doesn't contain any hyphenated words, so that gives us some freedom. Text2.txt contains all of the following words:
 * to-day
 * today
 * waistcoat- pocket
 * waistcoat-pocket
 * out-of-the-way
 
-On one extreme you have "to-day", which clearly has the same stem as "today". On the other extreme, you have "out-of-the-way", which might be considered a string of four stems, rather than just one stem like "outoftheway". Since it seems closer to a single concept than "to-day" seems like it could be two, I errored on the side of treating hyphenated words as inseperable.
+On one extreme you have "to-day", which clearly has the same stem as "today". On the other extreme, you have "out-of-the-way", which might be considered a string of four stems, rather than just one stem like "outoftheway". Since it seems closer to a single concept than "to-day" seems like it could be two, I errored on the side of treating hyphenated words as inseparable.
 
-However, there is still the problem of dashes, which could be represented as two hyphens (and in fact is in Text2.txt). Dashes always seperate words, so you can't just remove all hyphens before tokenizing.
+However, there is still the problem of dashes, which could be represented as two hyphens (and in fact is in Text2.txt). Dashes always separate words, so you can't just remove all hyphens before tokenizing.
 
 Therefore, I consider single hyphens inside words a non-separating in the pattern-matching during tokenization, but then I remove the hyphens from the tokens immediately after.
 I don't do any special handling to account for potential typos like "waistcoat- pocket". Those are just considered two words.

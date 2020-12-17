@@ -71,12 +71,9 @@ class TestStemFrequency(unittest.TestCase):
         check(most_common(freq, 2), [("f", 5), ("d", 3)])
         check(most_common(freq, 3), [("f", 5), ("d", 3), ("g", 3)])
         check(most_common(freq, 4), [("f", 5), ("d", 3), ("g", 3), ("b", 2)])
-        check(most_common(freq, 5), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("c", 1)])
-        check(most_common(freq, 5, alphabetical=True), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("a", 1)])
-        check(most_common(freq, 8), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("c", 1), ("a", 1), ("e", 1)])
-        check(most_common(freq, 8, alphabetical=True),
-              [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("a", 1), ("c", 1), ("e", 1)])
-        check(most_common(freq, 100), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("c", 1), ("a", 1), ("e", 1)])
+        check(most_common(freq, 5), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("a", 1)])
+        check(most_common(freq, 8), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("a", 1), ("c", 1), ("e", 1)])
+        check(most_common(freq, 100), [("f", 5), ("d", 3), ("g", 3), ("b", 2), ("a", 1), ("c", 1), ("e", 1)])
 
     @staticmethod
     def _assert_msg(actual, expected):

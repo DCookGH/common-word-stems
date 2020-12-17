@@ -69,19 +69,15 @@ def stem_and_consolidate(frequencies, remove_apostrophes=False):
     return consolidated
 
 
-def most_common(frequencies, count, alphabetical=False):
+def most_common(frequencies, count):
     """
-    Given a dictionary of strings to their frequency, finds the most common strings in descending order of frequency
+    Given a dictionary of strings to their frequency, finds the most common strings in order of descending
+    frequency, then ascending alphabetical
     :param frequencies: a dictionary of strings to their frequency
     :param count: the number of strings to return
-    :param alphabetical: boolean - if true, will sort strings of the same frequency alphabetically.
-        If false, will keep them in their original order
     :return: a list of tuples of the most common strings in descending order of frequency: (stem, frequency)
     """
-    if alphabetical:
-        return heapq.nsmallest(count, frequencies.items(), key=lambda x: (-x[1], x[0]))
-    else:
-        return heapq.nlargest(count, frequencies.items(), key=lambda x: x[1])
+    return heapq.nsmallest(count, frequencies.items(), key=lambda x: (-x[1], x[0]))
 
 
 def find_common_stems(file_name, count=20):
