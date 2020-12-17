@@ -124,7 +124,7 @@ On one extreme you have "to-day", which clearly has the same stem as "today". On
 However, there is still the problem of dashes, which could be represented as two hyphens (and in fact is in Text2.txt). Dashes always seperate words, so you can't just remove all hyphens before tokenizing.
 
 Therefore, I consider single hyphens inside words a non-separating in the pattern-matching during tokenization, but then I remove the hyphens from the tokens immediately after.
-I don't do any special handling to account for potential typos like "waistcoat- pocket". Those be considered two words.
+I don't do any special handling to account for potential typos like "waistcoat- pocket". Those are just considered two words.
 
 #### Numbers:
 I remove these before tokenization. This would matter if there was a word containing a number, such as "passw0rd", in which case it would be considered one word ("passwrd"), instead of two ("passw", "rd"). There is nothing like this in any of the text files.
