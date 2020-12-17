@@ -2,7 +2,7 @@
 
 This repository contains a program to read a text file and print out the 20 most commonly occuring word stems, not including words from a set of stopwords.
 
-The code is written in Python 3. It will run in Python 2, but you will get a slightly different output in Python 2. I chose to use the convention that for stems that have the same frequency, they will be kept in the order of their first appearance in the text. This will not hold true if the code is run in Python 2.
+The code is written in Python 3. It will run in Python 2, but you will get a slightly different output in Python 2. I chose to use the convention that for stems that have the same frequency, they will be kept in the order of their first appearance in the text. This will not hold true if the code is run in Python 2. Also, the unit tests will fail in Python 2, due to this reason, and because of different handling of unicode characters.
 
 To run the program, make sure all the files are in the same directory, and in that directory, run either of the following commands, depending on which file you want to read the text of:
 
