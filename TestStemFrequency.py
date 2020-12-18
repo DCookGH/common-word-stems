@@ -36,8 +36,6 @@ class TestStemFrequency(unittest.TestCase):
         check(sf.remove_stopwords({}), {})
         check(sf.remove_stopwords({"c": 1, "cd": 2}), {"c": 1, "cd": 2})
 
-
-
     def test_stem_and_consolidate(self):
         check = TestStemFrequency._assert_msg
         sf = StemFrequency()

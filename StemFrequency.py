@@ -1,3 +1,10 @@
+"""StemFrequency.py
+author: David Cook
+
+This is a program to read a text file and print out the 20 most commonly occurring word stems,
+not including words from a set of stopwords.
+"""
+
 import re
 import heapq
 import sys
@@ -45,7 +52,6 @@ class StemFrequency:
         """
         Removes blacklisted keys from a dictionary
         :param words: A dictionary where the keys are to be compared against a blacklist
-        :param stopwords: A list of keys to remove from a dictionary
         :return: a dictionary with the blacklisted keys removed
         """
         for stopword in self.stopwords:
@@ -100,7 +106,7 @@ class StemFrequency:
 
 if __name__ == '__main__':
     # get filepath if passed-in
-    filepath = sys.argv[1] if len(sys.argv) > 1 else 'Text2.txt'
+    filepath = sys.argv[1] if len(sys.argv) > 1 else 'Text1.txt'
     stem_frequency = StemFrequency()
     for stem in stem_frequency.find_common_stems(filepath, 20):
         print("{} ({})".format(stem[0], stem[1]))
