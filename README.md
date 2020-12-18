@@ -4,7 +4,7 @@ This repository contains a program to read a text file and print out the 20 most
 
 The code is written in Python 3. I did not attempt backwards compatibility for Python 2. I did do a test run in Python 2, and the main program will still work, but the unittests will fail due to incompatibility with unicode.
 
-To run the program, make sure all the files are in the same directory, and in that directory, run either of the following commands, depending on which file you want to read the text of:
+To run the program, make sure all the files are in the same directory. From the command line, while in that directory, run either of the following commands, depending on which file you want to read the text of:
 
 `python StemFrequency.py Text1.txt`
 
